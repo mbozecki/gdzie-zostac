@@ -23,8 +23,9 @@
                 <img src='<%=element["image"]%>' class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><%= element["nazwa"] %></h5>
-                    <p class="card-text">Krótki opis</p>
-                    <p class="card-text"><small class="text-muted">Od 30zł/noc</small></p>
+                    <p class="card-text"><%= element["krotkiopis"] %></p>
+                    <p> <a href="/miejsca/<%= element._id %>" class="btn btn-primary">Sprawdź</a>
+                    <p class="card-text"><small class="text-muted">Od <%= element["cena"] %>zł/noc</small></p>
                 </div>
             </div>
         </div>

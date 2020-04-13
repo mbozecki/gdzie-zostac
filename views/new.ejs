@@ -5,15 +5,29 @@
     <div style="width:40%; margin:4em auto;">
         <form action="/miejsca " method="POST">
             <div class="form-group">
-                <input type="text" class="form-control " name="nazwa" placeholder="Nazwa, np 'hotel w centrum Poznania'">
+                <input type="text" class="form-control " name="nazwa"
+                    placeholder="Nazwa, np 'hotel w centrum Poznania'">
             </div>
 
             <div class="form-group">
-            <input type="text" class="form-control" name="image"placeholder="URL obrazka">
+                <input type="text" class="form-control" name="image" placeholder="URL obrazka">
             </div>
 
             <div class="form-group">
-            <button class="form-control btn btn-success"> Dodaj!</button>
+                <input type="text" class="form-control" name="krotkiopis" placeholder="Krótki opis dla podglądu">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="dlugiopis" placeholder="Długi opis, wyświetlany na stronie">
+            </div>
+
+            <div class="form-group">
+                
+                <input type="number" class="form-control" name="cena" placeholder="Cena w PLN, np 50">
+            </div>
+
+            <div class="form-group">
+                <button class="form-control btn btn-success"> Dodaj!</button>
             </div>
 
         </form>

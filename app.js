@@ -25,7 +25,10 @@ app.listen(3000, function(){
 // Schemat tworzenia miejsc
 var miejscaSchema= new mongoose.Schema({
     nazwa:String,
-    image: String
+    image: String,
+    krotkiopis: String,
+    dlugiopis: String,
+    cena: Number
 })
 
 var Miejsca=mongoose.model("Miejsca",miejscaSchema)
@@ -43,7 +46,7 @@ app.get("/miejsca",function(req,res){
         if(err){
             console.log(err);
         } else {
-            res.render("miejsca", {miejsca:miejsca})
+            res.render("index", {miejsca:miejsca})
         }
     })
 });
@@ -52,17 +55,30 @@ app.post("/miejsca", function(req,res){
     //zbierz dane z formularza i dodaj do tabeli
     var nazwa=req.body.nazwa;
     var image=req.body.image;
-    var nowemiejsca={nazwa:nazwa, image:image}
+    var krotkiopis=req.body.krotkiopis;
+    var dlugiopis=req.body.dlugiopis;
+    var cena=req.body.cena;
+    var nowemiejsca={nazwa:nazwa, image:image,krotkiopis:krotkiopis, dlugiopis:dlugiopis, cena:cena }
     // stworz nowe miejsce i dodaj do tabeli
     Miejsca.create(nowemiejsca,function(err,nowe){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/miejsca")
+            res.redirect("/index")
         }
     })
 });
 
 app.get("/miejsca/new", function(req,res){
     res.render("new.ejs")
+})
+
+app.get("/miejsca/:id", function(req,res){
+    Miejsca.findById(req.params.id, function(err, miejsceID){
+        if (err){
+            console.log(err)
+        } else {
+            res.render("show", {miejsce: miejsceID})
+        }
+    })
 })
