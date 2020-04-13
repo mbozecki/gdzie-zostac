@@ -1,8 +1,23 @@
 <%- include('partials/header') %>
-<h1>Stwórz nowe miejsce!</h1>
-<form action="/miejsca " method="POST">
-    <input type="text" name="nazwa" placeholder="nazwa">
-    <input type="text" name="image"placeholder="url obrazka">
-    <button> Wyślij!</button>
-</form>
+
+<div class="container text-center mt-4">
+    <h1>Stwórz nowe miejsce!</h1>
+    <div style="width:40%; margin:4em auto;">
+        <form action="/miejsca " method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control " name="nazwa" placeholder="Nazwa, np 'hotel w centrum Poznania'">
+            </div>
+
+            <div class="form-group">
+            <input type="text" class="form-control" name="image"placeholder="URL obrazka">
+            </div>
+
+            <div class="form-group">
+            <button class="form-control btn btn-success"> Dodaj!</button>
+            </div>
+
+        </form>
+        <a href="/miejsca"> Nie chcę dodawać, wróć do przeglądania</a>
+    </div>
+</div>
 <%- include('partials/footer') %>

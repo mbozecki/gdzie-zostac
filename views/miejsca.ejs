@@ -1,10 +1,37 @@
 <%- include('partials/header') %>
 
-<a href="/miejsca/new">Dodaj nowe miejsce!</a>
-<% miejsca.forEach(function(element){ %>
-    <div>
-        <h4> <%= element["nazwa"] %> </h4>
-        <img src='<%=element["image"]%>'>
+
+<!-- Opis strony--> 
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1> Wybierz swoje miejsce </h1>
+            <p> Odkryj nasze wybrane miejsca </p>
+            <p>
+                <a class="btn btn-primary btn-large" href="/miejsca/new">Dodaj nowe miejsce!</a>
+            </p>
+
+        </div>
+    </header>
+    
+   <!-- Stworzenie listy miejsc-->     
+    <div class="card-deck">
+        
+        <% miejsca.forEach(function(element){ %>
+        <div class="col-sm-6 col-lg-4">
+            <div class="card mt-5">
+                <img src='<%=element["image"]%>' class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%= element["nazwa"] %></h5>
+                    <p class="card-text">Krótki opis</p>
+                    <p class="card-text"><small class="text-muted">Od 30zł/noc</small></p>
+                </div>
+            </div>
+        </div>
+        <% }) %>
     </div>
-<% }) %>
+</div>
+
+</div>
+
 <%- include('partials/footer') %>
