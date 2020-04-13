@@ -1,0 +1,8 @@
+<%- include('partials/header') %>
+<h1>Stwórz nowe miejsce!</h1>
+<form action="/miejsca " method="POST">
+    <input type="text" name="nazwa" placeholder="nazwa">
+    <input type="text" name="image"placeholder="url obrazka">
+    <button> Wyślij!</button>
+</form>
+<%- include('partials/footer') %>

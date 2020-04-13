@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+
+<a href="/miejsca/new">Dodaj nowe miejsce!</a>
+<% miejsca.forEach(function(element){ %>
+    <div>
+        <h4> <%= element["nazwa"] %> </h4>
+        <img src='<%=element["image"]%>'>
+    </div>
+<% }) %>
+<%- include('partials/footer') %>
