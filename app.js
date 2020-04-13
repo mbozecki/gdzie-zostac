@@ -1,23 +1,34 @@
 var express=require("express")
 var app=express()
 var bodyParser= require("body-parser");
+var mongoose = require('mongoose');
+
+require('dotenv').config();
+
+const uri = process.env.ATLAS_URI;
+//Podłączenie się do bazy danych przez mongoose
+mongoose.connect(uri, {useNewUrlParser: true,  useUnifiedTopology: true }  );
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Połączono z bazą danych!")
+});
+
+
 app.use(bodyParser.urlencoded({extended: true}));
-
-//tymczasowo, potem bedzie przeniesione do bazy danych
-var miejsca= [
-    {nazwa: "Msc1", image:"https://images.unsplash.com/photo-1534595038511-9f219fe0c979?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
-    {nazwa: "Msc2", image:"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
-    {nazwa: "Msc3", image:"https://images.unsplash.com/photo-1536376072261-38c75010e6c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
-    {nazwa: "Msc4", image:"https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
-    {nazwa: "Msc5", image:"https://images.unsplash.com/photo-1486304873000-235643847519?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
-    {nazwa: "Msc6", image:"https://images.unsplash.com/photo-1529408686214-b48b8532f72c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"}
-
-]
 
 
 app.listen(3000, function(){
     console.log("Serwer działa...")
 });
+
+// Schemat tworzenia miejsc
+var miejscaSchema= new mongoose.Schema({
+    nazwa:String,
+    image: String
+})
+
+var Miejsca=mongoose.model("Miejsca",miejscaSchema)
 
 
 app.set("view engine","ejs")
@@ -27,8 +38,14 @@ app.get("/", function(req,res){
 });
 
 app.get("/miejsca",function(req,res){
-
-    res.render("miejsca", {miejsca:miejsca})
+    //wez wszystkie miejsca z bazy danych
+    Miejsca.find({}, function(err,miejsca){ 
+        if(err){
+            console.log(err);
+        } else {
+            res.render("miejsca", {miejsca:miejsca})
+        }
+    })
 });
 
 app.post("/miejsca", function(req,res){
@@ -36,8 +53,14 @@ app.post("/miejsca", function(req,res){
     var nazwa=req.body.nazwa;
     var image=req.body.image;
     var nowemiejsca={nazwa:nazwa, image:image}
-    miejsca.push(nowemiejsca)
-    res.redirect("/miejsca")
+    // stworz nowe miejsce i dodaj do tabeli
+    Miejsca.create(nowemiejsca,function(err,nowe){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect("/miejsca")
+        }
+    })
 });
 
 app.get("/miejsca/new", function(req,res){
