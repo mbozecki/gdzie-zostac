@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+<div class="container text-center mt-4">
+    <h1>Dodaj komentarz do <%= miejsca.nazwa %> </h1>
+    <div style="width:40%; margin:4em auto;">
+        <form action="/miejsca/<%= miejsca._id %>/komentarze " method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control " name="komentarz[tekst]"
+                    placeholder="Tekst, np świetna obsługa klienta!">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="komentarz[autor]" placeholder="Podpisz się">
+            </div>
+            <div class="form-group">
+                <button class="form-control btn btn-success"> Dodaj!</button>
+            </div>
+        </form>
+        <a href="/miejsca"> Nie chcę dodawać, wróć do przeglądania</a>
+    </div>
+</div>
+<%- include('../partials/footer') %>

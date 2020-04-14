@@ -14,6 +14,9 @@ db.once('open', function() {
   console.log("Połączono z bazą danych!")
 });
 
+var Miejsca=require("./models/miejsca")
+var Komentarze=require("./models/komentarze")
+var User=require("./models/user")
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -21,17 +24,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.listen(3000, function(){
     console.log("Serwer działa...")
 });
-
-// Schemat tworzenia miejsc
-var miejscaSchema= new mongoose.Schema({
-    nazwa:String,
-    image: String,
-    krotkiopis: String,
-    dlugiopis: String,
-    cena: Number
-})
-
-var Miejsca=mongoose.model("Miejsca",miejscaSchema)
 
 
 app.set("view engine","ejs")
@@ -46,7 +38,7 @@ app.get("/miejsca",function(req,res){
         if(err){
             console.log(err);
         } else {
-            res.render("index", {miejsca:miejsca})
+            res.render("miejsca/index", {miejsca:miejsca})
         }
     })
 });
@@ -64,21 +56,59 @@ app.post("/miejsca", function(req,res){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/index")
+            res.redirect("index")
         }
     })
 });
 
 app.get("/miejsca/new", function(req,res){
-    res.render("new.ejs")
+    res.render("miejsca/new")
 })
 
+
+//znajdz miejsce przez ID, i dodaj tam komentarze
 app.get("/miejsca/:id", function(req,res){
-    Miejsca.findById(req.params.id, function(err, miejsceID){
+    Miejsca.findById(req.params.id).populate("Komentarze").exec(function(err, miejsceID){
         if (err){
             console.log(err)
         } else {
-            res.render("show", {miejsce: miejsceID})
+            res.render("miejsca/show", {miejsce: miejsceID})
+        }
+    })
+})
+
+//==================Komentarze
+
+app.get("/miejsca/:id/komentarze/new", function(req,res){
+    Miejsca.findById(req.params.id, function(err, miejsca){
+        if(err){
+            console.log(err)
+        } else {
+            res.render("komentarze/new", {miejsca:miejsca})
+        }
+    })
+})
+
+app.post("/miejsca/:id/komentarze", function(req,res){
+    
+
+    //znajdz miejsce by id, stowrz nowy komentarz i polacz go z miejscem. a potem przekieruj
+    Miejsca.findById(req.params.id, function(err, miejsca){
+        if(err){
+            console.log(err);
+            res.redirect("/miejsca")
+        } else {
+           
+            Komentarze.create(req.body.komentarz, function(err, komentarz){
+                if(err){
+                    console.log(err)
+                } else {
+                    miejsca.komentarze.push(komentarz);
+                    miejsca.save();
+                    console.log("udało niby się!")
+                    res.redirect("/miejsca/"+miejsca._id);
+                }
+            })
         }
     })
 })

@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+
+<div class="container">
+<h1 class="text-center mt-4"> <%= miejsce.nazwa %></h1>
+<img class="rounded mt-3" src="<%= miejsce.image %>">
+<p> <%= miejsce.dlugiopis %></p>
+</div>
+<% miejsce.komentarze.forEach(function(koment){ %>
+    <p><%= console.log(miejsce.komentarze) %> NIE WIEM O C O CHODZI <%= koment.tekst %></p>
+<%  }) %>
+<%- include('../partials/footer') %>
+    
