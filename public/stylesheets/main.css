@@ -15,3 +15,9 @@ h6.footer{
     font-size:10px;
     margin-top:20px;
 }
+
+.jumbotron {
+    background-image: url("https://c.pxhere.com/photos/b6/bc/aircraft_airplane_aviation_dawn_dusk_flight_flying_gradient-1553881.jpg!d");
+    background-size: cover;
+    height: 100%;
+}

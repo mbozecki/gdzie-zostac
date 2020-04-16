@@ -3,12 +3,12 @@
 
 <!-- Opis strony--> 
 <div class="container">
-    <header class="jumbotron">
+    <header class="jumbotron mt-2">
         <div class="container text-center">
-            <h1> Wybierz swoją destynacje </h1>
-            <p> Odkryj nasze starannie wybrane miejsca </p>
+            <h1> Wybierz swoją destynację! </h1>
+            <p> Odkryj nasze starannie wybrane miejsca: </p>
             <p>
-                <a class="btn btn-primary btn-large" href="/miejsca/new">Dodaj nowe miejsce!</a>
+                <a class="btn btn-primary btn-sm" href="/miejsca/new">Dodaj nowe miejsce!</a>
             </p>
 
         </div>
@@ -19,7 +19,7 @@
         
         <% miejsca.forEach(function(element){ %>
         <div class="col-sm-6 col-lg-4">
-            <div class="card mt-5">
+            <div class="card mt-5 shadow-sm p-3 mb-5 bg-white rounded">
                 <img src='<%=element["image"]%>' class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><%= element["nazwa"] %></h5>

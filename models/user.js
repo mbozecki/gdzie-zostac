@@ -1,17 +1,15 @@
 var mongoose=require("mongoose")
+var passportLocalMongoose=require("passport-local-mongoose")
 
-//-----------------uzytkownicy- email,imie, posty
+//-----------------uzytkownik
 
-var userSchema = new mongoose.Schema({
-    email:String,
-    imie: String,
-    posty: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post"
-        }
-    ]
+var UserSchema = new mongoose.Schema({
+    login: String,
+    haslo: String
+
 });
 
+UserSchema.plugin(passportLocalMongoose);
+
 //"zwraca" ten plik do uzycia dalej
-module.exports= mongoose.model("User", userSchema);
+module.exports= mongoose.model("User", UserSchema);
