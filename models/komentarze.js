@@ -4,7 +4,7 @@ var mongoose=require("mongoose")
 
 var komentarzeSchema= new mongoose.Schema({
     tekst: String,
-    autor: String,
+    autor: String
 });
 
 module.exports=mongoose.model("Komentarze", komentarzeSchema)

@@ -19,7 +19,7 @@ var Komentarze=require("./models/komentarze")
 var User=require("./models/user")
 
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.static(__dirname+"/public")) //do pliku css
 
 app.listen(3000, function(){
     console.log("Serwer działa...")
@@ -67,8 +67,8 @@ app.get("/miejsca/new", function(req,res){
 
 
 //znajdz miejsce przez ID, i dodaj tam komentarze
-app.get("/miejsca/:id", function(req,res){
-    Miejsca.findById(req.params.id).populate("Komentarze").exec(function(err, miejsceID){
+app.get("/miejsca/:id", function(req,res){ //populate zeby wypelnilo nie tylko ID komentarzy
+    Miejsca.findById(req.params.id).populate("komentarze").exec(function(err, miejsceID){
         if (err){
             console.log(err)
         } else {

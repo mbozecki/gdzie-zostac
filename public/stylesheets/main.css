@@ -1,0 +1,17 @@
+body {
+    font-family: 'Lato', sans-serif;
+
+}
+
+h1 {
+    font-weight:700;
+}
+
+h5 {
+    font-weight:500;
+}
+
+h6.footer{
+    font-size:10px;
+    margin-top:20px;
+}
