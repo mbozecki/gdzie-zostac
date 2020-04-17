@@ -1,5 +1,6 @@
 body {
     font-family: 'Lato', sans-serif;
+    background-color: rgb(224, 221, 223,0.2);
 
 }
 
@@ -17,7 +18,37 @@ h6.footer{
 }
 
 .jumbotron {
-    background-image: url("https://c.pxhere.com/photos/b6/bc/aircraft_airplane_aviation_dawn_dusk_flight_flying_gradient-1553881.jpg!d");
-    background-size: cover;
+    background-image:
+    linear-gradient(rgba(19, 2, 2, 0.15),rgba(17, 6, 6, 0.2)), 
+    url("https://images.unsplash.com/photo-1558660651-64b532f2dd76?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+   background-size: cover;
     height: 100%;
+    color:white;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.2),
+                 0px 8px 13px rgba(0,0,0,0.05),
+                 0px 18px 23px rgba(0,0,0,0.05);
 }
+.navbar {
+
+    background-color: transparent!important;
+    font-weight:bold;
+  }
+.parallax {
+    background-image:
+    linear-gradient(rgba(19, 2, 2, 0.3),rgba(17, 6, 6, 0.2)), 
+    url("https://images.unsplash.com/photo-1558660651-64b532f2dd76?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+	background-position: center bottom;
+	background-size: cover;
+    height: 99.9vh;
+    margin-top:-7.1vh;
+    background-repeat:no-repeat;
+}
+#content {
+    text-align:center;
+    padding-top: 28%;
+    color: white;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+}
+
