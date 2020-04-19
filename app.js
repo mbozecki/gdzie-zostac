@@ -41,7 +41,7 @@ app.use(express.static(__dirname + "/public")) //do pliku css
 
 const port = process.env.PORT
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server Running on port: ${port}`);
 });
 app.set("view engine", "ejs")
