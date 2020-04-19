@@ -39,10 +39,11 @@ passport.deserializeUser(User.deserializeUser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public")) //do pliku css
 
-app.listen(3000, function () {
-    console.log("Serwer działa...")
-});
+const port = process.env.PORT
 
+server.listen(port, () => {
+  console.log(`Server Running on port: ${port}`);
+});
 app.set("view engine", "ejs")
 
 app.use(function(req,res, next){ //to middleware bedzie obecne w kazdej stronie, i przekazuje dane uzytkownika
