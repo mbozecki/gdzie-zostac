@@ -6,7 +6,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local')
 var request=require("request")
 
-
 var Miejsca = require("./models/miejsca")
 var Komentarze = require("./models/komentarze")
 var User = require('./models/user')
@@ -76,7 +75,7 @@ app.post("/miejsca", function (req, res) {
     var cena = req.body.cena;
     var imie= req.body.imie;
     var numer= req.body.numer;
-    var url="https://maps.googleapis.com/maps/api/geocode/json?address="+lokacja+"&key=AIzaSyCANn6wVutvF2Ul8CJoTCTa4oIWMMDm2DM"; //używam google maps geocoding api
+    var url="https://maps.googleapis.com/maps/api/geocode/json?address="+lokacja+"&key="+process.env.GOOGLEKEY; //używam google maps geocoding api
     request(url, function(error,response,body){
         if(!error && response.statusCode==200){
             var googlelokacja=JSON.parse(body)
