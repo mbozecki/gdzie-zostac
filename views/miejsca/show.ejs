@@ -3,12 +3,28 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <p class="lead"> Miejsca</p>
+            <p class="lead"></p>
             <div class="list-group">
-                <li class="list-group-item active">Info1</li>
-                <li class="list-group-item">Info1</li>
-                <li class="list-group-item">Info1</li>
+                <li class="list-group-item active">Kontakt:</li>
+                <li class="list-group-item"><%= miejsce.imie %></li>
+                <li class="list-group-item"><%= miejsce.numer %></li>
             </div>
+            <div id="map"></div>
+            <script>
+                // Dodaj mapę google do strony
+                function initMap() {
+                    var pozycja = JSON.parse('<%-JSON.stringify(miejsce.googlelokacja[0])%>');
+                    //przekazuję wartosc z EJS to JS powyzsza komenda
+                    var map = new google.maps.Map(
+                        document.getElementById('map'), { zoom: 11, center: pozycja, disableDefaultUI: true, });
+                    // I dodaję wskaźnik
+                    var marker = new google.maps.Marker({ position: pozycja, map: map });
+                }
+            </script>
+            <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCANn6wVutvF2Ul8CJoTCTa4oIWMMDm2DM&callback=initMap">
+            </script>
+
         </div>
         <div class="col-md-9">
             <div class="card">
@@ -18,31 +34,32 @@
                         <div class="card-title mt-3">
                             <h1 style="display:inline; " class="text-left"><%= miejsce.nazwa %>
                             </h1>
-                            <h5 style="display:inline; float:right;" class="text-right text-muted mt-3"> od
+                            <h5 style="display:inline; float:right;" class="text-right text-muted mt-4"> od
                                 <%= miejsce.cena %>zł/za noc</h5>
                         </div>
                     </div>
-                    <div class="card-text">
+                    <div class="card-text mt-4" >
                         <p><%= miejsce.dlugiopis %></p>
+
                     </div>
                 </div>
-                
+
 
             </div>
             <div class="card card-body bg-light mt-4 mb-4">
                 <a class="btn btn-success btn-sm " href="/miejsca/<%= miejsce._id %>/komentarze/new">Dodaj nowy
                     komentarz!</a>
-                    <hr>
+                <hr>
                 <% miejsce.komentarze.forEach(function(komentarz){ %>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            <b><%=komentarz.autor  %>:</b>
-                            <div style="display:inline; float:right;" class="text-muted ">10days ago</div>
-                            <p> <%= komentarz.tekst %></p>
-                        </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <b><%=komentarz.autor  %>:</b>
+                        <div style="display:inline; float:right;" class="text-muted ">10days ago</div>
+                        <p> <%= komentarz.tekst %></p>
                     </div>
-                    
-                    <%  }) %>
+                </div>
+
+                <%  }) %>
             </div>
         </div>
     </div>

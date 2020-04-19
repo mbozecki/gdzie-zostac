@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local')
+var request=require("request")
 
 
 var Miejsca = require("./models/miejsca")
@@ -14,7 +15,7 @@ require('dotenv').config();
 const uri = process.env.ATLAS_URI;
 
 //Podłączenie się do bazy danych przez mongoose
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -71,19 +72,36 @@ app.post("/miejsca", function (req, res) {
     var image = req.body.image;
     var krotkiopis = req.body.krotkiopis;
     var dlugiopis = req.body.dlugiopis;
+    var lokacja= encodeURIComponent(req.body.lokacja); // zamienia np spacje na +, aby mozna bylo stworzyc z tego adres
     var cena = req.body.cena;
-    var nowemiejsca = { nazwa: nazwa, image: image, krotkiopis: krotkiopis, dlugiopis: dlugiopis, cena: cena }
-    // stworz nowe miejsce i dodaj do tabeli
-    Miejsca.create(nowemiejsca, function (err, nowe) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect("index")
+    var imie= req.body.imie;
+    var numer= req.body.numer;
+    var url="https://maps.googleapis.com/maps/api/geocode/json?address="+lokacja+"&key=AIzaSyCANn6wVutvF2Ul8CJoTCTa4oIWMMDm2DM"; //używam google maps geocoding api
+    request(url, function(error,response,body){
+        if(!error && response.statusCode==200){
+            var googlelokacja=JSON.parse(body)
+            googlelokacja=(googlelokacja["results"][0]["geometry"]["location"]) // Do odczytania koordynatów danego miejsca
+            var nowemiejsca = { nazwa: nazwa, image: image, krotkiopis: krotkiopis, dlugiopis: dlugiopis, cena: cena, googlelokacja: googlelokacja, imie:imie, numer:numer }
+            // stworz nowe miejsce i dodaj do tabeli
+            Miejsca.create(nowemiejsca, function (err, nowe) { //tworzy nowe miejsce w bazie dancyh
+                if (err) {
+                    console.log(err);
+                    res.send("Niepoprawne wartości. Spróbuj jeszcze raz...")
+                } else {
+                    res.redirect("../miejsca")
+                }
+            })
+        }
+        else {
+            console.log(error)
+            res.send("Niepoprawne wartości. Spróbuj jeszcze raz...")
         }
     })
+
+
 });
 
-app.get("/miejsca/new", function (req, res) {
+app.get("/miejsca/new",czyZalogowany, function (req, res) {
     res.render("miejsca/new")
 })
 
@@ -170,6 +188,10 @@ app.post("/login",passport.authenticate("local",
 
 app.get("/logout", function(req,res){
     req.logout();
+    res.redirect("/miejsca")
+})
+
+app.get("*", function(req,res){ //zlapie wszystkie adresy które nie są zdefiniowane
     res.redirect("/miejsca")
 })
 

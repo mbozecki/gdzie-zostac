@@ -7,6 +7,9 @@ var miejscaSchema= new mongoose.Schema({
     krotkiopis: String,
     dlugiopis: String,
     cena: Number,
+    googlelokacja: Array,
+    imie: String,
+    numer: Number,
     komentarze: [
         {
             type: mongoose.Schema.Types.ObjectId,

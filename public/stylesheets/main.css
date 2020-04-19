@@ -52,3 +52,12 @@ h6.footer{
                  0px 18px 23px rgba(0,0,0,0.1);
 }
 
+#map {
+    margin-top:3em;
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+   }
+   
+html::-webkit-scrollbar{
+    display:none
+}
