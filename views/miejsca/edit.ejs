@@ -1,0 +1,48 @@
+
+<%- include('../partials/header') %>
+
+<div class="container text-center mt-4">
+    <h1>Edytuj <%=miejsca.nazwa%></h1>
+    <div style="width:40%; margin:4em auto;">
+        <form action="/miejsca/<%=miejsca._id%>/?_method=PUT" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control " name="nazwa"
+                    value="<%= miejsca.nazwa %> ">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="image"  value="<%= miejsca.image %> ">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="krotkiopis"  value="<%= miejsca.krotkiopis %> ">
+            </div>
+
+            
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="lokacja"value="wpisz lokalizację..">
+            </div>
+
+            <div class="form-group">
+                
+                <input type="text" class="form-control" name="cena" required value="<%= miejsca.cena %> ">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="dlugiopis"  rows="8"><%= miejsca.dlugiopis %></textarea>
+              </div><hr>
+              <div class="form-group">
+                <input type="text" class="form-control" name="imie"value="<%= miejsca.imie %> ">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="numer" value="<%= miejsca.numer %> ">
+            </div>
+            <div class="form-group">
+                <button class="form-control btn btn-success"> Dodaj!</button>
+            </div>
+
+        </form>
+        <a href="/miejsca"> Nie chcę dodawać, wróć do przeglądania</a>
+    </div>
+</div>
+<%- include('../partials/footer') %>
