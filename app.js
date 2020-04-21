@@ -41,11 +41,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public")) //do pliku css
 app.use(methodOverride("_method"));
 
-//const port = process.env.PORT
-port = 3000;
+
+if (process.env.PORT==undefined){
+    port = 3000;
+}
+else{
+    port=process.env.PORT //heroku użyje tej opcji   
+}
+
 
 app.listen(port, () => {
-    console.log(`Server Running on port: ${port}`);
+    console.log(`Serwer działa na porcie: ${port}`);
 });
 app.set("view engine", "ejs")
 
