@@ -273,4 +273,4 @@ function czyZalogowany(req, res, next) { //middleware, jeżeli użytkownik zalog
 function CzyToImageURL(str){ //przyda sie do wylapywania bledow jezeli ktos wpisze bledny link do obrazu
     if ( typeof str !== 'string' ) return false;
     return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
-}
+}   
