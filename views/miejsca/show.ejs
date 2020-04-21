@@ -42,12 +42,16 @@
                         <p><%= miejsce.dlugiopis %></p>
 
                     </div>
+                <a class="text-muted" href="/miejsca/<%= miejsce._id %>/edit">Edytuj miejsce...</a>
+                <form action="/miejsca/<%=miejsce._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger btn-sm">USUŃ MIEJSCE</button>
+                </form>
                 </div>
 
 
             </div>
             <div class="card card-body bg-light mt-4 mb-4 ">
-                <a class="btn btn-success btn-sm " href="/miejsca/<%= miejsce._id %>/komentarze/new">Dodaj nowy
+                <a class=" btn btn-success btn-sm text-center"  style="width:30%;" href="/miejsca/<%= miejsce._id %>/komentarze/new">Dodaj nowy
                     komentarz!</a>
                 <hr>
                 <% miejsce.komentarze.forEach(function(komentarz){ %>
